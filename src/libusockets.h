@@ -155,8 +155,9 @@ struct us_socket_context_t *us_create_socket_context(int ssl, struct us_loop_t *
 void us_socket_context_free(int ssl, struct us_socket_context_t *context);
 
 /* Setters of various async callbacks */
+void us_socket_context_set_user_data(struct us_socket_context_t* context, void* user_data);
 void us_socket_context_on_pre_open(int ssl, struct us_socket_context_t *context,
-    LIBUS_SOCKET_DESCRIPTOR (*on_pre_open)(struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR fd));
+    LIBUS_SOCKET_DESCRIPTOR (*on_pre_open)(struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR fd, void*));
 void us_socket_context_on_open(int ssl, struct us_socket_context_t *context,
     struct us_socket_t *(*on_open)(struct us_socket_t *s, int is_client, char *ip, int ip_length));
 void us_socket_context_on_close(int ssl, struct us_socket_context_t *context,

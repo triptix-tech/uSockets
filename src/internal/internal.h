@@ -129,8 +129,9 @@ struct us_socket_context_t {
     struct us_listen_socket_t *head_listen_sockets;
     struct us_socket_t *iterator;
     struct us_socket_context_t *prev, *next;
+    void* user_data;
 
-    LIBUS_SOCKET_DESCRIPTOR (*on_pre_open)(struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR fd);
+    LIBUS_SOCKET_DESCRIPTOR (*on_pre_open)(struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR fd, void* user_data);
     struct us_socket_t *(*on_open)(struct us_socket_t *, int is_client, char *ip, int ip_length);
     struct us_socket_t *(*on_data)(struct us_socket_t *, char *data, int length);
     struct us_socket_t *(*on_writable)(struct us_socket_t *);
@@ -201,7 +202,7 @@ struct us_internal_ssl_socket_t *us_internal_ssl_adopt_accepted_socket(struct us
 struct us_internal_ssl_socket_t *us_internal_ssl_socket_context_connect(struct us_internal_ssl_socket_context_t *context,
     const char *host, int port, const char *source_host, int options, int socket_ext_size);
 
-    
+
 struct us_internal_ssl_socket_t *us_internal_ssl_socket_context_connect_unix(struct us_internal_ssl_socket_context_t *context,
     const char *server_path, int options, int socket_ext_size);
 

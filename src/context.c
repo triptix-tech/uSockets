@@ -417,8 +417,12 @@ struct us_socket_t *us_socket_context_adopt_socket(int ssl, struct us_socket_con
     return new_s;
 }
 
+void us_socket_context_set_user_data(struct us_socket_context_t* context, void* user_data) {
+  context->user_data = user_data;
+}
+
 /* For backwards compatibility, this function will be set to nullptr by default. */
-void us_socket_context_on_pre_open(int ssl, struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR (*on_pre_open)(struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR fd)) {
+void us_socket_context_on_pre_open(int ssl, struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR (*on_pre_open)(struct us_socket_context_t *context, LIBUS_SOCKET_DESCRIPTOR fd, void*)) {
     /* For this event, there is no difference between SSL and non-SSL */
     context->on_pre_open = on_pre_open;
 }
